@@ -21,6 +21,8 @@
 			<th><input type="button" value="hae" id="hakunappi"></th>
 		</tr>			
 		<tr>
+		
+			<th>AsiakasID</th>
 			<th>Etunimi</th>
 			<th>Sukunimi</th>
 			<th>Puhelin</th>

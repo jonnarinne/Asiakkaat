@@ -59,4 +59,34 @@ public class Dao {
 		return asiakkaat;
 	}
 	
+	
+	public ArrayList<Asiakas> listaaKaikki(String hakusana){
+		ArrayList<Asiakas> asiakkaat = new ArrayList<Asiakas>();
+		sql = "SELECT * FROM asiakkaat";       
+		try {
+			con=yhdista();
+			if(con!=null){ //jos yhteys onnistui
+				stmtPrep = con.prepareStatement(sql);        		
+        		rs = stmtPrep.executeQuery();   
+				if(rs!=null){ //jos kysely onnistui					
+					System.out.println();
+					while(rs.next()){
+						Asiakas asiakas = new Asiakas();
+						asiakas.setEtunimi(rs.getString(1));
+						asiakas.setSukunimi(rs.getString(2));
+						asiakas.setPuhelin(rs.getString(3));	
+						asiakas.setSposti(rs.getString(4));	
+						asiakkaat.add(asiakas);
+					}
+					System.out.println();
+				}
+				con.close();
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return asiakkaat;
+	}
+	
 }
