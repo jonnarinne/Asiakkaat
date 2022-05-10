@@ -48,20 +48,19 @@ $(document).ready(function(){
 		rules: {
 			etunimi:  {
 				required: true,
-				minlength: 3				
+				minlength: 2				
 			},	
 			sukunimi:  {
 				required: true,
-				minlength: 3
+				minlength: 2
 			},
 			puhelin:  {
 				required: true,
-				minlength: 10
+				minlength: 5
 			},	
 			sposti:  {
 				required: true,
-				minlength: 5,
-				maxlength: 30
+				email : true
 			}	
 		},
 		messages: {
@@ -79,20 +78,24 @@ $(document).ready(function(){
 			},
 			sposti: {
 				required: "Puuttuu",
-				minlength: "Liian lyhyt",
-				maxlength: "Liian pitk‰"
+				email: "Ei kelpaa"
 			}
 		},			
 		submitHandler: function(form) {	
 			lisaaTiedot();
 		}		
-	}); 	
+	}); 
+	
+	// Vied‰‰n kursori etunimi-kentt‰‰n sivun latauksen yhteydess‰
+	$("#etunimi").focus();
+	
 });
 
 //funktio tietojen lis‰‰mist‰ varten. Kutsutaan backin POST-metodia ja v‰litet‰‰n kutsun mukana uudet tiedot json-stringin‰.
 //POST /asiakkaat/
 function lisaaTiedot(){	
 	var formJsonStr = formDataJsonStr($("#tiedot").serializeArray()); //muutetaan lomakkeen tiedot json-stringiksi
+	console.log(formJsonStr);
 	$.ajax({url:"asiakkaat", data:formJsonStr, type:"POST", dataType:"json", success:function(result) { //result on joko {"response:1"} tai {"response:0"}       
 		if(result.response==0){
     	$("#ilmo").html("Asiakkaan lis‰‰minen ep‰onnistui.");
